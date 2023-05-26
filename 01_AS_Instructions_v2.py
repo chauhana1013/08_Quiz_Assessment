@@ -18,14 +18,10 @@ def user_choice(question, valid_list, error):
         print()
 
 
-# Main Routine goes here...
-print("📐📐📐 Welcome to Area of Shape Quiz 📐📐📐")
-
-# List for Yes or No
+# Lists for checking responses
 yes_no_list = ["yes", "no"]
 
 # Asks the user if they would like to see the Instructions
-print()
 show_instructions = user_choice("Hey Mathematician, would you like to see the Instructions? ",
                                 yes_no_list, "Please answer Yes or No")
 
@@ -34,13 +30,6 @@ if show_instructions == "yes":
     print()
     print("***** Instructions go here *****")
 
-
-# List for Level of Difficulty
-difficulty_list = ["easy", "medium", "hard"]
-
-# Ask user for choice and check it's valid
-print()
-difficulty_level = user_choice("Level of Difficulty (Easy / Medium / Hard): ", difficulty_list,
-                               "Please choose from Easy, Medium, or Hard")
-
-
+# If user inputs 'no' show
+else:
+    print("Program continues")
