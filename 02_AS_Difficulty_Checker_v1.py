@@ -14,6 +14,7 @@ def difficulty_checker(question):
             print("Please choose either Easy / Medium / Hard")
             print()
 
+
 while True:
     difficulty_level = difficulty_checker("Level of Difficulty (Easy / Medium / Hard): ")
 
