@@ -1,4 +1,6 @@
-# Functions go here...
+import random
+
+
 # Checks input is in a given list
 def user_choice(question, valid_list, error):
     while True:
@@ -42,36 +44,38 @@ def num_check(question, low=None, exit_code=None):
             print("Please enter an integer")
             continue
 
+while True:
+    # List for Level of Difficulty
+    difficulty_list = ["easy", "medium", "hard"]
 
-# Main Routine goes here...
-print("📐📐📐 Welcome to Area of Shape Quiz 📐📐📐")
-
-# List for Yes or No
-yes_no_list = ["yes", "no"]
-
-# Asks the user if they would like to see the Instructions
-print()
-show_instructions = user_choice("Hey Mathematician, would you like to see the Instructions? ",
-                                yes_no_list, "Please answer Yes or No")
-
-# If user inputs 'yes', shows user Instructions
-if show_instructions == "yes":
     print()
-    print("***** Instructions go here *****")
+    difficulty_level = user_choice("Level of Difficulty (Easy / Medium / Hard): ", difficulty_list,
+                                   "Please choose from Easy, Medium, or Hard")
 
-# List for Level of Difficulty
-difficulty_list = ["easy", "medium", "hard"]
+    if difficulty_level == "easy":
+        width = random.randint(1, 10)
+        height = random.randint(1, 10)
+        guesses = 3
 
-# Ask user for choice and check it's valid
-print()
-difficulty_level = user_choice("Level of Difficulty (Easy / Medium / Hard): ", difficulty_list,
-                               "Please choose from Easy, Medium, or Hard")
+    elif difficulty_level == "medium":
+        width = random.randint(1, 20)
+        height = random.randint(1, 20)
+        guesses = 2
 
-questions = num_check("How many questions would you like: ", 0)
+    elif difficulty_level == "hard":
+        width = random.randint(1, 100)
+        height = random.randint(1, 100)
+        guesses = 1
 
-if questions == "":
-    print("Infinite Mode Activated")
+    print(f"Width: {width}")
+    print(f"Height: {height}")
 
-print(f"You want to answer {questions} questions")
+    answer = width * height
+
+    users_guess = int(input("Answer: "))
+
+
+
+
 
 
