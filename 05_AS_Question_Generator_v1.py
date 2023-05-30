@@ -70,7 +70,6 @@ while game_over == "no":
             quiz_question = random.choice(questions_list)
             width = random.randint(1, 15)
             height = random.randint(1, 15)
-            guesses = 2
 
         elif difficulty_level == "hard":
             questions_list = ["rectangle", "triangle", "circle"]
@@ -78,7 +77,6 @@ while game_over == "no":
             width = random.randint(5, 15)
             height = random.randint(5, 15)
             radius = random.randint(2, 10)
-            guesses = 1
 
         if quiz_question == "rectangle":
             # Formula for Area of Rectangle

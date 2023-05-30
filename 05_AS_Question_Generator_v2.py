@@ -51,6 +51,11 @@ def num_check(var_question, low=None, exit_code=None):
 # Loop for testing purposes
 game_over = "no"
 while game_over == "no":
+    total_questions = num_check("How many questions would you like: ", 0)
+
+    # Infinite Mode is activated if user presses <ENTER>
+    if total_questions == "":
+        
     # List for Level of Difficulty
     difficulty_list = ["easy", "medium", "hard"]
 
