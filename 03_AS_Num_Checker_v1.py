@@ -25,12 +25,12 @@ def num_check(question, low=None, exit_code=None):
 
 # Put in loop for testing
 while True:
-    questions = num_check("How many questions would you like: ", 0)
+    total_questions = num_check("How many questions would you like: ", 0)
 
     # Infinite Mode is activated if user presses <ENTER>
-    if questions == "":
+    if total_questions == "":
         print("Infinite Mode Activated")
 
     # Prints the amount of questions user wants to answer
-    print(f"You want to answer {questions} questions")
+    print(f"You want to answer {total_questions} questions")
 

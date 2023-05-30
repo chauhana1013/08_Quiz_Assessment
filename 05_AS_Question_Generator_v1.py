@@ -1,3 +1,4 @@
+# version 2 - finding to
 import random
 import math
 
@@ -32,7 +33,7 @@ def num_check(var_question, low=None, exit_code=None):
             return response
 
         try:
-            response = int(response)
+            response = float(response)
 
             if response > low:
                 return response
@@ -59,29 +60,30 @@ while game_over == "no":
     while True:
 
         if difficulty_level == "easy":
-            width = random.randint(2, 10)
-            height = random.randint(2, 10)
+            quiz_question = "rectangle"
+            width = random.randint(1, 10)
+            height = random.randint(1, 10)
             guesses = 3
 
         elif difficulty_level == "medium":
             questions_list = ["rectangle", "triangle"]
             quiz_question = random.choice(questions_list)
-            width = random.randint(5, 20)
-            height = random.randint(5, 20)
+            width = random.randint(1, 15)
+            height = random.randint(1, 15)
             guesses = 2
 
         elif difficulty_level == "hard":
             questions_list = ["rectangle", "triangle", "circle"]
             quiz_question = random.choice(questions_list)
-            width = random.randint(11, 100)
-            height = random.randint(11, 100)
-            radius = random.randint(11, 100)
+            width = random.randint(5, 15)
+            height = random.randint(5, 15)
+            radius = random.randint(2, 10)
             guesses = 1
 
-        if quiz_question == "circle":
-            # Formula for Area of Circle
-            answer = math.pi * radius
-            print(f"Area of Circle \t | \t Radius: {radius}")
+        if quiz_question == "rectangle":
+            # Formula for Area of Rectangle
+            answer = width * height
+            print(f"Area of Rectangle \t | \t Width: {width} \t | \t Height: {height}")
 
         elif quiz_question == "triangle":
             # Formula for Area of Triangle
@@ -89,11 +91,11 @@ while game_over == "no":
             print(f"Area of Triangle \t | \t Base: {width} \t | \t Height: {height}")
 
         else:
-            # Formula for Area of Rectangle
-            answer = width * height
-            print(f"Area of Rectangle \t | \t Width: {width} \t | \t Height: {height}")
+            # Formula for Area of Circle
+            answer = math.pi * radius * radius
+            print(f"Area of Circle \t | \t Radius: {radius}")
 
-        answer = math.ceil(answer)
+        answer = round(answer, 2)
         print(answer)
 
         users_guess = num_check("Answer: ", 0, exit_code="xxx")
@@ -112,4 +114,3 @@ while game_over == "no":
             continue
 
 print("Thanks for playing")
-

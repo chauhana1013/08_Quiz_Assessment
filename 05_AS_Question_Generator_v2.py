@@ -1,3 +1,4 @@
+# version 2 - finding to
 import random
 import math
 
@@ -22,9 +23,9 @@ def list_checker(question, valid_list, error):
 
 
 # Checks input is exit code or integer and over low number
-def num_check(question, low=None, exit_code=None):
+def num_check(var_question, low=None, exit_code=None):
     while True:
-        response = input(question).lower()
+        response = input(var_question).lower()
         if response == exit_code:
             return response
 
@@ -32,7 +33,7 @@ def num_check(question, low=None, exit_code=None):
             return response
 
         try:
-            response = int(response)
+            response = float(response)
 
             if response > low:
                 return response
@@ -59,39 +60,42 @@ while game_over == "no":
     while True:
 
         if difficulty_level == "easy":
-            width = random.randint(2, 10)
-            height = random.randint(2, 10)
+            quiz_question = "rectangle"
+            width = random.randint(1, 10)
+            height = random.randint(1, 10)
             guesses = 3
-
-            print(f"Width: {width}")
-            print(f"Height: {height}")
 
         elif difficulty_level == "medium":
             questions_list = ["rectangle", "triangle"]
-            question = random.choice(questions_list)
-            width = random.randint(5, 20)
-            height = random.randint(5, 20)
+            quiz_question = random.choice(questions_list)
+            width = random.randint(1, 15)
+            height = random.randint(1, 15)
             guesses = 2
 
         elif difficulty_level == "hard":
             questions_list = ["rectangle", "triangle", "circle"]
-            question = random.choice(questions_list)
-            width = random.randint(11, 100)
-            height = random.randint(11, 100)
-            radius = random.randint(11, 100)
+            quiz_question = random.choice(questions_list)
+            width = random.randint(5, 15)
+            height = random.randint(5, 15)
+            radius = random.randint(2, 10)
             guesses = 1
 
-        if question == "circle":
-            answer = math.pi * radius
-
-        if question == "triangle":
-            # Formula for Area of Triangle
-            answer = 0.5 * width * height
-
-        else:
+        if quiz_question == "rectangle":
             # Formula for Area of Rectangle
             answer = width * height
+            print(f"Area of Rectangle \t | \t Width: {width} \t | \t Height: {height}")
 
+        elif quiz_question == "triangle":
+            # Formula for Area of Triangle
+            answer = 0.5 * width * height
+            print(f"Area of Triangle \t | \t Base: {width} \t | \t Height: {height}")
+
+        else:
+            # Formula for Area of Circle
+            answer = math.pi * radius * radius
+            print(f"Area of Circle \t | \t Radius: {radius}")
+
+        answer = round(answer, 2)
         print(answer)
 
         users_guess = num_check("Answer: ", 0, exit_code="xxx")
@@ -102,10 +106,12 @@ while game_over == "no":
 
         elif users_guess == answer:
             print("Woohoo you got the answer correct")
+            print()
 
         else:
             print("Incorrect Answer, keep going you got this")
+            print(f"The Answer was: {answer:.0f}")
+            print()
             continue
 
 print("Thanks for playing")
-
