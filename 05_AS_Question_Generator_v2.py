@@ -22,9 +22,9 @@ def list_checker(question, valid_list, error):
 
 
 # Checks input is exit code or integer and over low number
-def num_check(var_question, low=None, exit_code=None):
+def num_check(question, low=None, exit_code=None):
     while True:
-        response = input(var_question).lower()
+        response = input(question).lower()
         if response == exit_code:
             return response
 
@@ -63,37 +63,35 @@ while game_over == "no":
             height = random.randint(2, 10)
             guesses = 3
 
+            print(f"Width: {width}")
+            print(f"Height: {height}")
+
         elif difficulty_level == "medium":
             questions_list = ["rectangle", "triangle"]
-            quiz_question = random.choice(questions_list)
+            question = random.choice(questions_list)
             width = random.randint(5, 20)
             height = random.randint(5, 20)
             guesses = 2
 
         elif difficulty_level == "hard":
             questions_list = ["rectangle", "triangle", "circle"]
-            quiz_question = random.choice(questions_list)
+            question = random.choice(questions_list)
             width = random.randint(11, 100)
             height = random.randint(11, 100)
             radius = random.randint(11, 100)
             guesses = 1
 
-        if quiz_question == "circle":
-            # Formula for Area of Circle
+        if question == "circle":
             answer = math.pi * radius
-            print(f"Area of Circle \t | \t Radius: {radius}")
 
-        elif quiz_question == "triangle":
+        if question == "triangle":
             # Formula for Area of Triangle
             answer = 0.5 * width * height
-            print(f"Area of Triangle \t | \t Base: {width} \t | \t Height: {height}")
 
         else:
             # Formula for Area of Rectangle
             answer = width * height
-            print(f"Area of Rectangle \t | \t Width: {width} \t | \t Height: {height}")
 
-        answer = math.ceil(answer)
         print(answer)
 
         users_guess = num_check("Answer: ", 0, exit_code="xxx")
@@ -104,11 +102,9 @@ while game_over == "no":
 
         elif users_guess == answer:
             print("Woohoo you got the answer correct")
-            print()
 
         else:
             print("Incorrect Answer, keep going you got this")
-            print()
             continue
 
 print("Thanks for playing")
