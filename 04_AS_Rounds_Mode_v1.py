@@ -1,5 +1,11 @@
 # Checks input is exit code or integer and over low number
 def num_check(question, low=None, exit_code=None):
+
+    if low is not None and exit_code is not None:
+        situation = "decimals"
+    else:
+        situation = "integer"
+
     while True:
         response = input(question).lower()
         if response == exit_code:
@@ -9,7 +15,12 @@ def num_check(question, low=None, exit_code=None):
             return response
 
         try:
-            response = float(response)
+            if situation == "decimals":
+                response = float(response)
+
+            elif situation == "integer":
+                response = int(response)
+
             if low < response:
                 return response
 
@@ -30,29 +41,30 @@ end_game = "no"
 while end_game == "no":
     total_questions = num_check("How many questions would you like: ", 0)
 
-    # Rounds Heading
-    print()
-    # Infinite Mode is activated if user presses <ENTER>
-    if total_questions == "":
-        heading = "Infinite Mode: Round {}".format(questions_answered + 1)
+    while True:
+        # Rounds Heading
+        print()
+        # Infinite Mode is activated if user presses <ENTER>
+        if total_questions == "":
+            heading = "Infinite Mode: Round {}".format(questions_answered + 1)
 
-    else:
-        total_questions = int(total_questions)
-        heading = f"Round {questions_answered + 1} of {total_questions}"
-        if questions_answered == total_questions - 1:
-            end_game = "yes"
+        else:
+            total_questions = int(total_questions)
+            heading = f"Round {questions_answered + 1} of {total_questions}"
+            if questions_answered == total_questions:
+                end_game = "yes"
+                break
 
-    print(heading)
+        print(heading)
 
-    user_guess = num_check("Answer: ")
+        user_guess = num_check("Answer: ", 0, exit_code="xxx")
 
-    if user_guess == "xxx":
-        break
+        if user_guess == "xxx":
+            break
 
-    # Rest of the loop / game
-    user_guess = int(user_guess)
-    print(f"You chose {user_guess}")
+        # Rest of the loop / game
+        print(f"You chose {user_guess}")
 
-    questions_answered += 1
+        questions_answered += 1
 
 print("Thanks for playing")

@@ -47,15 +47,13 @@ def num_check(var_question, low=None, exit_code=None):
             print("Please enter an integer")
             continue
 
+questions_answered = 0
 
 # Loop for testing purposes
 game_over = "no"
 while game_over == "no":
     total_questions = num_check("How many questions would you like: ", 0)
 
-    # Infinite Mode is activated if user presses <ENTER>
-    if total_questions == "":
-        
     # List for Level of Difficulty
     difficulty_list = ["easy", "medium", "hard"]
 
@@ -63,6 +61,20 @@ while game_over == "no":
     difficulty_level = list_checker("Level of Difficulty (Easy / Medium / Hard): ", difficulty_list,
                                     "Please choose from Easy, Medium, or Hard")
     while True:
+
+        print()
+        # Infinite Mode is activated if user presses <ENTER>
+        if total_questions == "":
+            heading = "Infinite Mode: Round {}".format(questions_answered + 1)
+
+        else:
+            total_questions = int(total_questions)
+            heading = f"Round {questions_answered + 1} of {total_questions}"
+            if questions_answered == total_questions:
+                end_game = "yes"
+                break
+
+        print(heading)
 
         if difficulty_level == "easy":
             quiz_question = "rectangle"
@@ -115,7 +127,7 @@ while game_over == "no":
 
         else:
             print("Incorrect Answer, keep going you got this")
-            print(f"The Answer was: {answer:.0f}")
+            print(f"The Answer was: {answer}")
             print()
             continue
 
