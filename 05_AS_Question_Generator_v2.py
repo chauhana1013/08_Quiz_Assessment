@@ -4,10 +4,10 @@ import math
 
 
 # Checks input is in a given list
-def list_checker(question, valid_list, error):
+def list_checker(var_question, valid_list, error):
     while True:
         # Ask user for choice (and put choice in lowercase)
-        response = input(question).lower()
+        response = input(var_question).lower()
 
         # Iterates through list and if response is an item
         # In the list (or the first letter of an item),
@@ -33,7 +33,7 @@ def num_check(var_question, low=None, exit_code=None):
             return response
 
         try:
-            response = float(response)
+            response = int(response)
 
             if response > low:
                 return response
@@ -47,12 +47,16 @@ def num_check(var_question, low=None, exit_code=None):
             print("Please enter an integer")
             continue
 
+
 questions_answered = 0
 
 # Loop for testing purposes
 game_over = "no"
 while game_over == "no":
     total_questions = num_check("How many questions would you like: ", 0)
+
+    if total_questions == "":
+        print("♾♾♾ Entering Infinite Mode ♾♾♾")
 
     # List for Level of Difficulty
     difficulty_list = ["easy", "medium", "hard"]
@@ -65,11 +69,11 @@ while game_over == "no":
         print()
         # Infinite Mode is activated if user presses <ENTER>
         if total_questions == "":
-            heading = "Infinite Mode: Round {}".format(questions_answered + 1)
+            heading = "♾♾♾ Infinite Mode: Question {} ♾♾♾".format(questions_answered + 1)
 
         else:
             total_questions = int(total_questions)
-            heading = f"Round {questions_answered + 1} of {total_questions}"
+            heading = f"Question {questions_answered + 1} of {total_questions}"
             if questions_answered == total_questions:
                 end_game = "yes"
                 break
@@ -77,58 +81,72 @@ while game_over == "no":
         print(heading)
 
         if difficulty_level == "easy":
-            quiz_question = "rectangle"
+            shape = "rectangle"
             width = random.randint(1, 10)
             height = random.randint(1, 10)
-            guesses = 3
 
-        elif difficulty_level == "medium":
-            questions_list = ["rectangle", "triangle"]
-            quiz_question = random.choice(questions_list)
-            width = random.randint(1, 15)
-            height = random.randint(1, 15)
-            guesses = 2
+        else:
+            shape_list = ["rectangle", "triangle", "circle"]
 
-        elif difficulty_level == "hard":
-            questions_list = ["rectangle", "triangle", "circle"]
-            quiz_question = random.choice(questions_list)
-            width = random.randint(5, 15)
-            height = random.randint(5, 15)
-            radius = random.randint(2, 10)
-            guesses = 1
+            if difficulty_level == "medium":
+                shape = random.choice(shape_list)
+                width = random.randint(1, 15)
+                height = random.randint(1, 15)
+                radius = random.randint(2, 5)
 
-        if quiz_question == "rectangle":
+            if difficulty_level == "hard":
+                shape = random.choice(shape_list)
+                width = random.randint(5, 15)
+                height = random.randint(5, 15)
+                radius = random.randint(2, 10)
+                questions_type = ["find_area", "find_side_length"]
+                question = random.choice(questions_type)
+
+        if shape == "rectangle":
             # Formula for Area of Rectangle
-            answer = width * height
-            print(f"Area of Rectangle \t | \t Width: {width} \t | \t Height: {height}")
+            area = width * height
+            if question == "find_side_length":
+                print(f"Find Missing Side of Rectangle \t | \t Area: {area} \t | \t Height: {height}")
 
-        elif quiz_question == "triangle":
+            else:
+                print(f"Area of Rectangle \t | \t Width: {width} \t | \t Height: {height}")
+
+        elif shape == "triangle":
             # Formula for Area of Triangle
-            answer = 0.5 * width * height
-            print(f"Area of Triangle \t | \t Base: {width} \t | \t Height: {height}")
+            area = 0.5 * width * height
+            if question == "find_side_length":
+                print(f"Find Missing Side of Triangle \t | \t Area: {area} \t | \t Height: {height}")
+            else:
+                print(f"Area of Triangle \t | \t Base: {width} \t | \t Height: {height}")
 
         else:
             # Formula for Area of Circle
-            answer = math.pi * radius * radius
+            area = math.pi * radius * radius
             print(f"Area of Circle \t | \t Radius: {radius}")
 
-        answer = round(answer, 2)
-        print(answer)
+        if question == "find_side_length":
+            width = math.ceil(width)
+            print(width)
 
-        users_guess = num_check("Answer: ", 0, exit_code="xxx")
+        else:
+            area = math.ceil(area)
+            print(area)
 
-        if users_guess == "xxx":
+        users_answer = num_check("Answer: ", 0, exit_code="xxx")
+
+        if users_answer == "xxx":
             game_over = "yes"
             break
 
-        elif users_guess == answer:
+        elif users_answer == area:
             print("Woohoo you got the answer correct")
             print()
 
         else:
             print("Incorrect Answer, keep going you got this")
-            print(f"The Answer was: {answer}")
+            print(f"The Answer was: {area}")
             print()
             continue
+
 
 print("Thanks for playing")

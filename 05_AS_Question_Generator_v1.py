@@ -33,7 +33,7 @@ def num_check(var_question, low=None, exit_code=None):
             return response
 
         try:
-            response = float(response)
+            response = int(response)
 
             if response > low:
                 return response
@@ -48,9 +48,16 @@ def num_check(var_question, low=None, exit_code=None):
             continue
 
 
+questions_answered = 0
+
 # Loop for testing purposes
 game_over = "no"
 while game_over == "no":
+    total_questions = num_check("How many questions would you like: ", 0)
+
+    if total_questions == "":
+        print("♾♾♾ Entering Infinite Mode ♾♾♾")
+
     # List for Level of Difficulty
     difficulty_list = ["easy", "medium", "hard"]
 
@@ -59,11 +66,24 @@ while game_over == "no":
                                     "Please choose from Easy, Medium, or Hard")
     while True:
 
+        print()
+        # Infinite Mode is activated if user presses <ENTER>
+        if total_questions == "":
+            heading = "♾♾♾ Infinite Mode: Question {} ♾♾♾".format(questions_answered + 1)
+
+        else:
+            total_questions = int(total_questions)
+            heading = f"Question {questions_answered + 1} of {total_questions}"
+            if questions_answered == total_questions:
+                end_game = "yes"
+                break
+
+        print(heading)
+
         if difficulty_level == "easy":
             quiz_question = "rectangle"
             width = random.randint(1, 10)
             height = random.randint(1, 10)
-            guesses = 3
 
         elif difficulty_level == "medium":
             questions_list = ["rectangle", "triangle"]
@@ -93,7 +113,7 @@ while game_over == "no":
             answer = math.pi * radius * radius
             print(f"Area of Circle \t | \t Radius: {radius}")
 
-        answer = round(answer, 2)
+        answer = math.ceil(answer)
         print(answer)
 
         users_guess = num_check("Answer: ", 0, exit_code="xxx")
@@ -108,7 +128,9 @@ while game_over == "no":
 
         else:
             print("Incorrect Answer, keep going you got this")
+            print(f"The Answer was: {answer}")
             print()
             continue
+
 
 print("Thanks for playing")

@@ -1,11 +1,5 @@
 # Checks input is exit code or integer and over low number
 def num_check(question, low=None, exit_code=None):
-
-    if low is not None and exit_code is not None:
-        situation = "decimals"
-    else:
-        situation = "integer"
-
     while True:
         response = input(question).lower()
         if response == exit_code:
@@ -15,11 +9,7 @@ def num_check(question, low=None, exit_code=None):
             return response
 
         try:
-            if situation == "decimals":
-                response = float(response)
-
-            elif situation == "integer":
-                response = int(response)
+            response = int(response)
 
             if low < response:
                 return response
@@ -46,11 +36,10 @@ while end_game == "no":
         print()
         # Infinite Mode is activated if user presses <ENTER>
         if total_questions == "":
-            heading = "Infinite Mode: Round {}".format(questions_answered + 1)
+            heading = "Infinite Mode: Question {}".format(questions_answered + 1)
 
         else:
-            total_questions = int(total_questions)
-            heading = f"Round {questions_answered + 1} of {total_questions}"
+            heading = f"Question {questions_answered + 1} of {total_questions}"
             if questions_answered == total_questions:
                 end_game = "yes"
                 break
