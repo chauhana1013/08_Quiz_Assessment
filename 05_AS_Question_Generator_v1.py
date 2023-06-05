@@ -81,29 +81,29 @@ while game_over == "no":
         print(heading)
 
         if difficulty_level == "easy":
-            quiz_question = "rectangle"
+            shape = "rectangle"
             width = random.randint(1, 10)
             height = random.randint(1, 10)
 
         elif difficulty_level == "medium":
             questions_list = ["rectangle", "triangle"]
-            quiz_question = random.choice(questions_list)
+            shape = random.choice(questions_list)
             width = random.randint(1, 15)
             height = random.randint(1, 15)
 
         elif difficulty_level == "hard":
             questions_list = ["rectangle", "triangle", "circle"]
-            quiz_question = random.choice(questions_list)
+            shape = random.choice(questions_list)
             width = random.randint(5, 15)
             height = random.randint(5, 15)
             radius = random.randint(2, 10)
 
-        if quiz_question == "rectangle":
+        if shape == "rectangle":
             # Formula for Area of Rectangle
             answer = width * height
             print(f"Area of Rectangle \t | \t Width: {width} \t | \t Height: {height}")
 
-        elif quiz_question == "triangle":
+        elif shape == "triangle":
             # Formula for Area of Triangle
             answer = 0.5 * width * height
             print(f"Area of Triangle \t | \t Base: {width} \t | \t Height: {height}")
@@ -116,19 +116,19 @@ while game_over == "no":
         answer = math.ceil(answer)
         print(answer)
 
-        users_guess = num_check("Answer: ", 0, exit_code="xxx")
+        users_answer = num_check("Answer: ", 0, exit_code="xxx")
 
-        if users_guess == "xxx":
+        if users_answer == "xxx":
             game_over = "yes"
             break
 
-        elif users_guess == answer:
+        elif users_answer == answer:
             print("Woohoo you got the answer correct")
             print()
 
         else:
             print("Incorrect Answer, keep going you got this")
-            print(f"The Answer was: {answer}")
+            print(f"The Correct Answer was: {answer}")
             print()
             continue
 

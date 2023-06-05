@@ -26,6 +26,7 @@ def list_checker(var_question, valid_list, error):
 def num_check(var_question, low=None, exit_code=None):
     while True:
         response = input(var_question).lower()
+
         if response == exit_code:
             return response
 
@@ -86,6 +87,7 @@ while game_over == "no":
             width = random.randint(1, 10)
             height = random.randint(1, 5)
             question = "find_area"
+            answer_tries = 3
         else:
             shape_list = ["triangle", "rectangle", "circle"]
 
@@ -95,6 +97,7 @@ while game_over == "no":
                 height = random.randint(5, 10)
                 radius = random.randint(2, 5)
                 question = "find_area"
+                answer_tries = 2
 
             elif difficulty_level == "hard":
                 shape = random.choice(shape_list)
@@ -103,6 +106,7 @@ while game_over == "no":
                 radius = random.randint(2, 10)
                 question_type = ["find_area", "find_side_length"]
                 question = random.choice(question_type)
+                answer_tries = 1
 
         if shape == "rectangle":
             # Formula for Area of Rectangle
@@ -138,18 +142,26 @@ while game_over == "no":
             valid_answer = math.ceil(area)
         print(valid_answer)
 
-        users_answer = num_check("Answer: ", 0, exit_code="xxx")
+        while True:
+            users_answer = num_check("Answer: ", 0, exit_code="xxx")
 
-        if users_answer == "xxx":
-            game_over = "yes"
-            break
+            if users_answer == "xxx":
+                break
+            answer_tries -= 1
 
-        elif users_answer == valid_answer:
-            print("Woohoo you got the answer correct")
-            print()
+            if users_answer == valid_answer:
+                print("Woohoo you got the answer correct")
+                break
 
-        elif users_answer != valid_answer:
-            print("Incorrect Answer, keep going you got this")
+            elif answer_tries == 0:
+                print(f"The Correct Answer was: {valid_answer}")
+                print()
+                game_over = "yes"
+                break
+
+            elif users_answer != valid_answer:
+                print("Incorrect Answer, keep going you got this")
+                print(f"Tries Left: {answer_tries}")
 
         questions_answered += 1
 

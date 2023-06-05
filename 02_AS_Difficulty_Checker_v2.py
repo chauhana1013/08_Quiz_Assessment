@@ -19,6 +19,7 @@ def user_choice(question, valid_list, error):
         print(error)
         print()
 
+
 # Main Routine goes here
 # Lists for checking responses
 difficulty_list = ["easy", "medium", "hard"]
