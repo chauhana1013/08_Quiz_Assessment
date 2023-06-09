@@ -51,8 +51,8 @@ def num_check(var_question, low=None, exit_code=None):
 questions_answered = 0
 
 # Loop for testing purposes
-game_over = "no"
-while game_over == "no":
+playing_quiz = "yes"
+while playing_quiz == "yes":
     total_questions = num_check("How many questions would you like: ", 0)
 
     if total_questions == "":
@@ -75,7 +75,7 @@ while game_over == "no":
             total_questions = int(total_questions)
             heading = f"Question {questions_answered + 1} of {total_questions}"
             if questions_answered == total_questions:
-                end_game = "yes"
+                playing_quiz = "no"
                 break
 
         print(heading)
@@ -119,7 +119,7 @@ while game_over == "no":
         users_answer = num_check("Answer: ", 0, exit_code="xxx")
 
         if users_answer == "xxx":
-            game_over = "yes"
+            playing_quiz = "no"
             break
 
         elif users_answer == answer:

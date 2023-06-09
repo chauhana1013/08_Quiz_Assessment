@@ -26,6 +26,7 @@ def list_checker(var_question, valid_list, error):
 def num_check(var_question, low=None, exit_code=None):
     while True:
         response = input(var_question).lower()
+
         if response == exit_code:
             return response
 
@@ -33,7 +34,7 @@ def num_check(var_question, low=None, exit_code=None):
             return response
 
         try:
-            response = int(response)
+            response = float(response)
 
             if response > low:
                 return response
@@ -61,11 +62,14 @@ while playing_quiz == "yes":
 
     # List for Level of Difficulty
     difficulty_list = ["easy", "medium", "hard"]
+    # List of Shapes
+    shape_list = ["Triangle", "Rectangle", "Circle"]
 
     print()
     difficulty_level = list_checker("Level of Difficulty (Easy / Medium / Hard): ", difficulty_list,
                                     "Please choose from Easy, Medium, or Hard")
-    while True:
+    end_quiz = "no"
+    while end_quiz == "no":
 
         print()
         # Infinite Mode is activated if user presses <ENTER>
@@ -81,75 +85,84 @@ while playing_quiz == "yes":
 
         print(heading)
 
+        shape = random.choice(shape_list)
+        question = "Area"
         if difficulty_level == "easy":
-            shape = "rectangle"
             width = random.randint(1, 10)
             height = random.randint(1, 5)
-            question = "find_area"
+            radius = random.randint(1, 3)
+            answer_tries = 3
+
         else:
-            shape_list = ["triangle", "rectangle", "circle"]
+            width = random.randint(5, 15)
+            height = random.randint(1, 5)
+            radius = random.randint(2, 5)
 
             if difficulty_level == "medium":
-                shape = random.choice(shape_list)
-                width = random.randint(5, 15)
-                height = random.randint(5, 10)
-                radius = random.randint(2, 5)
-                question = "find_area"
+                answer_tries = 2
 
             elif difficulty_level == "hard":
-                shape = random.choice(shape_list)
-                width = random.randint(5, 15)
-                height = random.randint(5, 10)
-                radius = random.randint(2, 10)
-                question_type = ["find_area", "find_side_length"]
+                question_type = ["Find Missing Side", "Area"]
                 question = random.choice(question_type)
+                answer_tries = 1
 
-        if shape == "rectangle":
+        height = height * 2
+
+        if shape == "Rectangle":
             # Formula for Area of Rectangle
             area = width * height
-            if question == "find_side_length":
-                print(f"Find Missing Side of Rectangle \t | \t Area: {area} \t | \t Height: {height}")
-            else:
-                print(f"Area of Rectangle \t | \t Width: {width} \t | \t Height: {height}")
 
-        elif shape == "triangle":
+        elif shape == "Triangle":
             # Formula for Area of Triangle
             area = 0.5 * width * height
-            if question == "find_side_length":
-                print(f"Find Missing Side of Triangle \t | \t Area: {area} \t | \t Height: {height}")
-            else:
-                print(f"Area of Triangle \t | \t Base: {width} \t | \t Height: {height}")
+            area = math.ceil(area)
 
-        else:
+        elif shape == "Circle":
             # Formula for Area of Circle
             area = math.pi * radius * radius
-            if question == "find_side_length":
-                print(f"Find Radius of Circle \t | \t Area: {area}")
+
+        if question == "Find Missing Side":
+            if shape == "Triangle" or shape == "Rectangle":
+                print(f"{question} of {shape} \t | \t Area: {area} \t | \t Height: {height}")
+                valid_answer = width
+            else:
+                print(f"Find Radius of {shape} \t | \t Area: {area:.2f}")
+                valid_answer = radius
+
+        elif question == "Area":
+            if shape == "Rectangle" or shape == "Triangle":
+                print(f"{question} of {shape} \t | \t Width: {width} \t | \t Height: {height}")
+                valid_answer = math.ceil(area)
             else:
                 print(f"Area of Circle \t | \t Radius: {radius}")
+                valid_answer = round(area, 2)
 
-        if question == "find_side_length":
-            if shape == "rectangle" or shape == "triangle":
-                valid_answer = math.ceil(width)
-            else:
-                valid_answer = math.ceil(radius)
-
-        else:
-            valid_answer = math.ceil(area)
         print(valid_answer)
 
-        users_answer = num_check("Answer: ", 0, exit_code="xxx")
+        while True:
+            users_answer = num_check("Answer: ", 0, exit_code="xxx")
 
-        if users_answer == "xxx":
-            playing_quiz = "no"
-            break
+            if users_answer == "xxx":
+                playing_quiz = "yes"
+                end_quiz = "yes"
+                break
 
-        elif users_answer == valid_answer:
-            print("Woohoo you got the answer correct")
-            print()
+            answer_tries -= 1
 
-        elif users_answer != valid_answer:
-            print("Incorrect Answer, keep going you got this")
+            if users_answer == valid_answer:
+                print("Woohoo you got the answer correct")
+                break
+
+            elif answer_tries == 0:
+                if shape == "Circle" and question == "Area":
+                    print(f"The Correct Answer was: {valid_answer:.2f}")
+                else:
+                    print(f"The Correct Answer was: {valid_answer}")
+                break
+
+            elif users_answer != valid_answer:
+                print("Incorrect Answer, keep going you got this")
+                print(f"Tries Left: {answer_tries}")
 
         questions_answered += 1
 

@@ -1,3 +1,4 @@
+
 def difficulty_checker(question):
     while True:
         response = input(question).lower()
