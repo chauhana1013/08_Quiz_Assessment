@@ -31,7 +31,6 @@ while end_game == "no":
     total_questions = num_check("How many questions would you like: ", 0)
 
     while True:
-        # Rounds Heading
         print()
         # Infinite Mode is activated if user presses <ENTER>
         if total_questions == "":

@@ -55,6 +55,8 @@ answer_tries = 0
 # Loop for testing purposes
 playing_quiz = "yes"
 while playing_quiz == "yes":
+
+    # Asks user how many questions they would like
     total_questions = num_check("How many questions would you like: ", 0)
 
     if total_questions == "":
@@ -65,6 +67,7 @@ while playing_quiz == "yes":
     # List of Shapes
     shape_list = ["Triangle", "Rectangle", "Circle"]
 
+    # Asks user how much hard they would like their questions
     print()
     difficulty_level = list_checker("Level of Difficulty (Easy / Medium / Hard): ", difficulty_list,
                                     "Please choose from Easy, Medium, or Hard")
@@ -76,6 +79,7 @@ while playing_quiz == "yes":
         if total_questions == "":
             heading = "♾♾♾ Infinite Mode: Question {} ♾♾♾".format(questions_answered + 1)
 
+        # Else the program outputs a heading including which question out of the total questions the user is on
         else:
             total_questions = int(total_questions)
             heading = f"Question {questions_answered + 1} of {total_questions}"
@@ -87,6 +91,10 @@ while playing_quiz == "yes":
 
         shape = random.choice(shape_list)
         question = "Area"
+
+        # If difficulty level is easy, the random number range is from 1 to 10 for width,
+        # for height the range is 1 to 5 and for radius the range is 1 to 3
+        # The user gets 3 tries to answer the question
         if difficulty_level == "easy":
             width = random.randint(1, 10)
             height = random.randint(1, 5)
@@ -94,13 +102,19 @@ while playing_quiz == "yes":
             answer_tries = 3
 
         else:
+            # For both hard and medium, the random number range is from 5 to 15 for width,
+            # for height the range is 5 to 10 and for radius the range is 2 to 5
             width = random.randint(5, 15)
             height = random.randint(1, 5)
             radius = random.randint(2, 5)
 
+            # If difficulty level is medium, the user gets 2 tries to answer the question
             if difficulty_level == "medium":
                 answer_tries = 2
 
+            # If difficulty level is medium, the user gets 2 tries to answer the question
+            # Hard level also has two types of questions: Find the Area and Find the Side Length
+            # The user gets 1 tries to answer the question
             elif difficulty_level == "hard":
                 question_type = ["Find Missing Side", "Area"]
                 question = random.choice(question_type)
@@ -121,6 +135,7 @@ while playing_quiz == "yes":
             # Formula for Area of Circle
             area = math.pi * radius * radius
 
+        # Program outputs question to find the side length and gives the area and height or just area for the circle
         if question == "Find Missing Side":
             if shape == "Triangle" or shape == "Rectangle":
                 print(f"{question} of {shape} \t | \t Area: {area} \t | \t Height: {height}")
@@ -129,6 +144,7 @@ while playing_quiz == "yes":
                 print(f"Find Radius of {shape} \t | \t Area: {area:.2f}")
                 valid_answer = radius
 
+        # Program outputs question for finding the area of the circle and gives the width and height or radius
         elif question == "Area":
             if shape == "Rectangle" or shape == "Triangle":
                 print(f"{question} of {shape} \t | \t Width: {width} \t | \t Height: {height}")
@@ -137,11 +153,14 @@ while playing_quiz == "yes":
                 print(f"Area of Circle \t | \t Radius: {radius}")
                 valid_answer = round(area, 2)
 
+        # Prints the answer for testing purposes
         print(valid_answer)
 
         while True:
+            # Asks user to answer the question
             users_answer = num_check("Answer: ", 0, exit_code="xxx")
 
+            # If user inputs the exit code, program breaks
             if users_answer == "xxx":
                 playing_quiz = "yes"
                 end_quiz = "yes"
@@ -149,10 +168,12 @@ while playing_quiz == "yes":
 
             answer_tries -= 1
 
+            # If user gets the answer correct, program congratulates the user
             if users_answer == valid_answer:
                 print("Woohoo you got the answer correct")
                 break
 
+            # If tries are all used then program shows the answer
             elif answer_tries == 0:
                 if shape == "Circle" and question == "Area":
                     print(f"The Correct Answer was: {valid_answer:.2f}")
@@ -160,10 +181,11 @@ while playing_quiz == "yes":
                     print(f"The Correct Answer was: {valid_answer}")
                 break
 
+            # If users gets the answer wrong, program tells the user that they were incorrect and shows tries left
             elif users_answer != valid_answer:
                 print("Incorrect Answer, keep going you got this")
                 print(f"Tries Left: {answer_tries}")
 
         questions_answered += 1
-
+# If game ends, program thanks the user for playing
 print("Thanks for playing")
