@@ -1,5 +1,5 @@
 # Question Generator Version 2 - Nearly Base Level code for the Questions Component
-# with a couple missing parts and repeated code
+# with missing parts and repeated code but doubled the types aof questions user might get
 import random
 import math
 

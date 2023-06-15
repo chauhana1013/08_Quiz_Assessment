@@ -1,5 +1,5 @@
-# Question Generator Version 2 - Nearly Base Level code for the Questions Component
-# with a couple missing parts and repeated code
+# Question Generator Version 3 - Nearly Base Level code for the Questions Component
+# with a couple missing parts, repeated code but added the number of answer tries for each question
 import random
 import math
 

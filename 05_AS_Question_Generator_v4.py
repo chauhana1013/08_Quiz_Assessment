@@ -1,4 +1,5 @@
-# version 2 - finding to
+# Question Generator Version 4 - Base Level code for the Questions Component completely polished and
+# added list and error message for repeated code
 import random
 import math
 
