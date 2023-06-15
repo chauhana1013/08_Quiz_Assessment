@@ -1,4 +1,5 @@
-# version 2 - finding to
+# Question Generator Version 2 - Nearly Base Level code for the Questions Component
+# with a couple missing parts and repeated code
 import random
 import math
 
@@ -24,7 +25,12 @@ def list_checker(var_question, valid_list, error):
 
 # Checks input is exit code or integer and over low number
 def num_check(var_question, low=None, exit_code=None):
+    if low is not None and exit_code is not None:
+        situation = "float"
+    elif low is not None and exit_code is None:
+        situation = "integer"
     while True:
+        # First checks if the response was exit code
         response = input(var_question).lower()
 
         if response == exit_code:
@@ -34,7 +40,11 @@ def num_check(var_question, low=None, exit_code=None):
             return response
 
         try:
-            response = float(response)
+            if situation == "integer":
+                response = int(response)
+
+            elif situation == "float":
+                response = float(response)
 
             if response > low:
                 return response
@@ -75,7 +85,7 @@ while playing_quiz == "yes":
         print()
         # Infinite Mode is activated if user presses <ENTER>
         if total_questions == "":
-            heading = "♾♾♾ Infinite Mode: Question {} ♾♾♾".format(questions_answered + 1)
+            heading = f"♾♾♾ Infinite Mode: Question {questions_answered + 1} ♾♾♾"
 
         # Else the program outputs a heading including which question out of the total questions the user is on
         else:
@@ -181,7 +191,7 @@ while playing_quiz == "yes":
 
             # If user inputs the exit code, program breaks
             if users_answer == "xxx":
-                playing_quiz = "yes"
+                playing_quiz = "no"
                 end_game = "yes"
                 break
 

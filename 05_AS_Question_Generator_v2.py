@@ -1,4 +1,5 @@
-# version 2 - finding to
+# Question Generator Version 2 - Nearly Base Level code for the Questions Component
+# with a couple missing parts and repeated code
 import random
 import math
 
@@ -72,7 +73,7 @@ while playing_quiz == "yes":
         print()
         # Infinite Mode is activated if user presses <ENTER>
         if total_questions == "":
-            heading = "♾♾♾ Infinite Mode: Question {} ♾♾♾".format(questions_answered + 1)
+            heading = f"♾♾♾ Infinite Mode: Question {questions_answered + 1} ♾♾♾"
 
         # Else the program outputs a heading including which question out of the total questions the user is on
         else:

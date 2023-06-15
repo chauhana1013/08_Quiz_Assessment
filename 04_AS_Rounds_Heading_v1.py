@@ -34,7 +34,7 @@ while end_game == "no":
         print()
         # Infinite Mode is activated if user presses <ENTER>
         if total_questions == "":
-            heading = "Infinite Mode: Question {}".format(questions_answered + 1)
+            heading = f"♾♾♾ Infinite Mode: Question {questions_answered + 1} ♾♾♾"
 
         # Else the program outputs a heading including which question out of the total questions the user is on
         else:

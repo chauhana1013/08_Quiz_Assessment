@@ -4,50 +4,6 @@ import math
 
 # Functions go here...
 # Checks input is in a given list
-def user_choice(var_question, valid_list, error):
-    while True:
-        # Ask user for choice (and put choice in lowercase)
-        response = input(var_question).lower()
-
-        # Iterates through list and if response is an item
-        # In the list (or the first letter of an item),
-        # the full item name is returned
-        for item in valid_list:
-            if response == item[0] or response == item:
-                response = item
-                return response
-
-        # Output error if item not in list
-        print(error)
-        print()
-
-
-# Checks input is exit code, number or number with decimal and over low number
-def num_check(var_question, low=None, exit_code=None):
-    while True:
-        response = input(var_question).lower()
-        if response == exit_code:
-            return response
-
-        elif response == "":
-            return response
-
-        try:
-            response = float(response)
-            if low < response:
-                return response
-
-            # Displays this error message if user inputs integer
-            # lower than or equal to low number
-            print(f"Please enter an integer more than {low}")
-
-        # If user inputs anything else, displays error message
-        except ValueError:
-            print("Please enter an integer")
-            continue
-
-
-# Checks input is in a given list
 def list_checker(var_question, valid_list, error):
     while True:
         # Ask user for choice (and put choice in lowercase)
@@ -66,6 +22,42 @@ def list_checker(var_question, valid_list, error):
         print()
 
 
+# Checks input is exit code or integer and over low number
+def num_check(var_question, low=None, exit_code=None):
+    if low is not None and exit_code is not None:
+        situation = "float"
+    elif low is not None and exit_code is None:
+        situation = "integer"
+    while True:
+        # First checks if the response was exit code
+        response = input(var_question).lower()
+
+        if response == exit_code:
+            return response
+
+        elif response == "":
+            return response
+
+        try:
+            if situation == "integer":
+                response = int(response)
+
+            elif situation == "float":
+                response = float(response)
+
+            if response > low:
+                return response
+
+            # Displays this error message if user inputs integer
+            # lower than or equal to low number
+            print(f"Please enter an integer more than {low}")
+
+        # If user inputs anything else, displays error message
+        except ValueError:
+            print("Please enter an integer")
+            continue
+
+
 # Main Routine goes here...
 print("📐📐📐 Welcome to Area of Shape Quiz 📐📐📐")
 
@@ -74,8 +66,8 @@ yes_no_list = ["yes", "no"]
 
 # Asks the user if they would like to see the Instructions
 print()
-show_instructions = user_choice("Hey Mathematician, would you like to see the Instructions? ",
-                                yes_no_list, "Please answer Yes or No")
+show_instructions = list_checker("Hey Mathematician, would you like to see the Instructions? ",
+                                 yes_no_list, "Please answer Yes or No")
 
 # If user inputs 'yes', shows user Instructions
 if show_instructions == "yes":
@@ -187,7 +179,7 @@ while playing_quiz == "yes":
                 valid_answer = round(area, 2)
 
         # Prints the answer for testing purposes
-        print(valid_answer)
+        # print(valid_answer)
 
         while True:
             # Asks user to answer the question
@@ -195,7 +187,7 @@ while playing_quiz == "yes":
 
             # If user inputs the exit code, program breaks
             if users_answer == "xxx":
-                playing_quiz = "yes"
+                playing_quiz = "no"
                 end_quiz = "yes"
                 break
 

@@ -24,7 +24,12 @@ def list_checker(var_question, valid_list, error):
 
 # Checks input is exit code or integer and over low number
 def num_check(var_question, low=None, exit_code=None):
+    if low is not None and exit_code is not None:
+        situation = "float"
+    elif low is not None and exit_code is None:
+        situation = "integer"
     while True:
+        # First checks if the response was exit code
         response = input(var_question).lower()
 
         if response == exit_code:
@@ -34,7 +39,11 @@ def num_check(var_question, low=None, exit_code=None):
             return response
 
         try:
-            response = float(response)
+            if situation == "integer":
+                response = int(response)
+
+            elif situation == "float":
+                response = float(response)
 
             if response > low:
                 return response
@@ -77,7 +86,7 @@ while playing_quiz == "yes":
         print()
         # Infinite Mode is activated if user presses <ENTER>
         if total_questions == "":
-            heading = "♾♾♾ Infinite Mode: Question {} ♾♾♾".format(questions_answered + 1)
+            heading = f"♾♾♾ Infinite Mode: Question {questions_answered + 1} ♾♾♾"
 
         # Else the program outputs a heading including which question out of the total questions the user is on
         else:
@@ -156,17 +165,35 @@ while playing_quiz == "yes":
         # Prints the answer for testing purposes
         print(valid_answer)
 
+        # List of Answers
+        already_answered = []
+
         while True:
+
             # Asks user to answer the question
             users_answer = num_check("Answer: ", 0, exit_code="xxx")
 
             # If user inputs the exit code, program breaks
             if users_answer == "xxx":
-                playing_quiz = "yes"
+                playing_quiz = "no"
                 end_quiz = "yes"
                 break
 
+            if users_answer == "":
+                print("Please enter a number")
+                continue
+
+            # If user's input is already in the List of Answers, it displays error message
+            if users_answer in already_answered:
+                if users_answer % 1 == 0:
+                    users_answer = math.ceil(users_answer)
+                else:
+                    users_answer = round(users_answer, 2)
+                print(f"You've already answered {users_answer}! You still have {answer_tries} tries left.")
+                continue
+
             answer_tries -= 1
+            already_answered.append(users_answer)
 
             # If user gets the answer correct, program congratulates the user
             if users_answer == valid_answer:
@@ -183,8 +210,7 @@ while playing_quiz == "yes":
 
             # If users gets the answer wrong, program tells the user that they were incorrect and shows tries left
             elif users_answer != valid_answer:
-                print("Incorrect Answer, keep going you got this")
-                print(f"Tries Left: {answer_tries}")
+                print(f"Incorrect Answer, keep going you got this | Tries Left: {answer_tries}")
 
         questions_answered += 1
 # If game ends, program thanks the user for playing
