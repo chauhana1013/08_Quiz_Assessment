@@ -190,7 +190,7 @@ while playing_quiz == "yes":
                     users_answer = math.ceil(users_answer)
                 else:
                     users_answer = round(users_answer, 2)
-                print(f"You've already answered {users_answer}! You still have {answer_tries} tries left.")
+                print(f"You've already answered {users_answer}! You still have {answer_tries} tries left")
                 continue
 
             answer_tries -= 1
