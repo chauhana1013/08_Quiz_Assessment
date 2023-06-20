@@ -59,10 +59,19 @@ def num_check(var_question, low=None, exit_code=None):
 
 
 # Main Routine goes here...
-print("📐📐📐 Welcome to Area of Shape Quiz 📐📐📐")
+print()
+print("📏📏📏 Welcome to Area of Shape Quiz 📏📏📏")
 
 # List for Yes or No
 yes_no_list = ["yes", "no"]
+
+# List for Level of Difficulty
+difficulty_list = ["easy", "medium", "hard"]
+
+# List of Shapes
+shape_list = ["Triangle", "Rectangle", "Circle"]
+
+quiz_history = []
 
 # Asks the user if they would like to see the Instructions
 print()
@@ -76,21 +85,19 @@ if show_instructions == "yes":
 
 questions_answered = 0
 answer_tries = 0
+correct_answer = 0
+incorrect_answer = 0
 
 # Loop for testing purposes
 playing_quiz = "yes"
 while playing_quiz == "yes":
 
     # Asks user how many questions they would like
+    print()
     total_questions = num_check("How many questions would you like: ", 0)
 
     if total_questions == "":
-        print("♾♾♾ Entering Infinite Mode ♾♾♾")
-
-    # List for Level of Difficulty
-    difficulty_list = ["easy", "medium", "hard"]
-    # List of Shapes
-    shape_list = ["Triangle", "Rectangle", "Circle"]
+        print("♾️♾️♾️ Entering Infinite Mode ♾️♾️♾️")
 
     # Asks user how much hard they would like their questions
     print()
@@ -98,16 +105,15 @@ while playing_quiz == "yes":
                                     "Please choose from Easy, Medium, or Hard")
     end_quiz = "no"
     while end_quiz == "no":
-
         print()
         # Infinite Mode is activated if user presses <ENTER>
         if total_questions == "":
-            heading = f"♾♾♾ Infinite Mode: Question {questions_answered + 1} ♾♾♾"
+            heading = f"♾️♾️♾️ Infinite Mode: Question {questions_answered + 1} ♾️♾️♾️"
 
         # Else the program outputs a heading including which question out of the total questions the user is on
         else:
             total_questions = int(total_questions)
-            heading = f"Question {questions_answered + 1} of {total_questions}"
+            heading = f"➕➖✖️➗ Question {questions_answered + 1} of {total_questions} ➕➖✖️➗"
             if questions_answered == total_questions:
                 playing_quiz = "no"
                 break
@@ -213,21 +219,55 @@ while playing_quiz == "yes":
 
             # If user gets the answer correct, program congratulates the user
             if users_answer == valid_answer:
-                print("Woohoo you got the answer correct")
+                print("✅✅✅ Woohoo you got the answer correct ✅✅✅")
+                correct_answer += 1
+                incorrect_answer -= 1
+                question_result = "✅✅✅ Correct ✅✅✅"
                 break
 
             # If tries are all used then program shows the answer
             elif answer_tries == 0:
+                print("❌❌❌ Incorrect Answer ❌❌❌")
                 if shape == "Circle" and question == "Area":
-                    print(f"The Correct Answer was: {valid_answer:.2f}")
+                    print(f"👍👍👍 The Correct Answer was: {valid_answer:.2f} ️✔👍👍👍️")
                 else:
-                    print(f"The Correct Answer was: {valid_answer}")
+                    print(f"👍👍👍 The Correct Answer was: {valid_answer} 👍👍👍")
+                question_result = "❌❌❌ Incorrect ❌❌❌"
                 break
 
             # If users gets the answer wrong, program tells the user that they were incorrect and shows tries left
             elif users_answer != valid_answer:
-                print(f"Incorrect Answer, keep going you got this | Tries Left: {answer_tries}")
+                print(f"❌❌❌ Incorrect Answer | Tries Left: {answer_tries} ❌❌❌")
+                question_result = "❌❌❌ Incorrect ❌❌❌"
 
-        questions_answered += 1
+        if users_answer != "xxx":
+            outcome = f"Question {questions_answered + 1}: {question_result}"
+            quiz_history.append(outcome)
+            questions_answered += 1
+            incorrect_answer += 1
+
+    print()
+    see_quiz_history = list_checker("Would you like to see Quiz History? ", yes_no_list,
+                                    "Please answer Yes or No") .lower()
+    if see_quiz_history == "yes":
+        print()
+        print("| Quiz History |")
+        for question_result in quiz_history:
+            print(question_result)
+
+    correct_percentage = correct_answer / questions_answered * 100
+    print()
+    print("| Quiz Result Summary |")
+    print(f"✅ Correct Answers: {correct_answer} ✅|❌ Incorrect Answers: {incorrect_answer} ❌|"
+          f" 📋 Question Answered: {questions_answered} 📋")
+    print(f"🎯🎯🎯 Accuracy: {correct_percentage}% 🎯🎯🎯")
+
+    print()
+    play_again = list_checker("Play Again? ", yes_no_list, "Please answer Yes or No")
+
+    if play_again == "yes":
+        playing_quiz = "yes"
+
 # If game ends, program thanks the user for playing
-print("Thanks for playing")
+print()
+print("👋👋👋 Thanks for playing 👋👋👋")
