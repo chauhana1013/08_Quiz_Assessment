@@ -80,7 +80,30 @@ show_instructions = list_checker("Hey Mathematician, would you like to see the I
 # If user inputs 'yes', shows user Instructions
 if show_instructions == "yes":
     print()
-    print("***** Instructions go here *****")
+    print("📢📢📢 Area Quiz Instructions 📢📢📢")
+    print("Hey Mathematician, I see you're new here")
+    print()
+    print("1️⃣ Enter the number of questions you would like to answer or press <ENTER> to enter Infinite Mode")
+    print("2️⃣ Select the Level of Difficult: Easy / E , Medium / M , Hard / H")
+    print()
+    print("❗Easy Level features Area of Rectangle, Triangle, and Circle. "
+          "You get 3 tries to answer correctly for each question")
+    print("❗Medium Level features Area of all the shapes listed above but the lengths of the shape are longer. "
+          "You get 2 tries to answer correctly for each question")
+    print("❗Hard Level features Area of all the shapes listed above, has the same length ranges of Medium Level,"
+          " but also features Finding the Missing Side question for all three shapes. "
+          "You get 1 try to answer correctly for each question")
+    print()
+    print("💡💡💡 Formula for Area of Rectangle: Area 🟰 Width ✖️ Height 💡💡💡")
+    print("💡💡💡 Formula for Area of Triangle: Area 🟰 1/2 ✖️ Width ✖️ Height 💡💡💡")
+    print("💡💡💡 Formula for Area of Circle: Area 🟰 π ✖️ Radius ✖️ Radius 💡💡💡")
+    print()
+    print("3️⃣ For each question, enter and answer or to quit enter <xxx>")
+    print("4️⃣ You can then see the Quiz History and Quiz Result Summary")
+    print("5️⃣ Choose to either Play Again or quit")
+    print()
+    print("👍👍👍 Good Luck Mathematician!!! 👍👍👍")
+
 
 playing_quiz = "yes"
 while playing_quiz == "yes":
@@ -95,14 +118,14 @@ while playing_quiz == "yes":
 
     # Asks user how many questions they would like
     print()
-    total_questions = num_check("How many questions would you like (Enter Number): ", 0)
+    total_questions = num_check("How many questions would you like (Enter Number or <ENTER> for Infinite Mode): ", 0)
 
     if total_questions == "":
         print("♾️♾️♾️ Entering Infinite Mode ♾️♾️♾️")
 
     # Asks user how much hard they would like their questions
     print()
-    difficulty_level = list_checker("Level of Difficulty (Easy / Medium / Hard): ", difficulty_list,
+    difficulty_level = list_checker("Level of Difficulty (Easy (E) / Medium (M)/ Hard (H)): ", difficulty_list,
                                     "Please choose from Easy, Medium, or Hard")
     end_quiz = "no"
     while end_quiz == "no":
@@ -190,7 +213,7 @@ while playing_quiz == "yes":
         already_answered = []
 
         # Prints the answer for testing purposes
-        print(valid_answer)
+        # print(valid_answer)
 
         while True:
 
